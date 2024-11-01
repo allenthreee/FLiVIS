@@ -1,0 +1,29 @@
+<launch>
+  <!-- Launch file for velodyne16 VLP-16 LiDAR -->
+    <param name="use_sim_time" value="true" />
+    <arg name="rviz" default="true" />
+    <arg name="autorun" default="false"/>
+    <rosparam command="load" file="$(find flivis)/config/NTUviral.yaml" />
+
+    <param name="feature_extract_enable" type="bool" value="0"/>
+    <param name="point_filter_num" type="int" value="4"/>
+    <param name="max_iteration" type="int" value="3" />
+    <param name="filter_size_surf" type="double" value="0.5" />
+    <param name="filter_size_map" type="double" value="0.5" />
+    <param name="cube_side_length" type="double" value="1000" />
+    <param name="runtime_pos_log_enable" type="bool" value="0" />
+    <node pkg="flivis" type="fastlio_mapping" name="laserMapping" output="screen" /> 
+
+    <group if="$(arg rviz)">
+    <node launch-prefix="nice" pkg="rviz" type="rviz" name="rviz" args="-d $(find flivis)/rviz_cfg/ntu_viral_follow_body.rviz" />
+    </group>
+    
+    <!-- <arg name="bag_file" default="/home/allen/flvis_dataset/viral/sbs_03/sbs_03.bag" /> -->
+    <arg name="bag_file" default="/home/allen/flvis_dataset/viral/eee_03/eee_03.bag" />
+    <node pkg="rosbag" required="$(arg autorun)" type="play" name="bag_play" args="$(arg bag_file) -s 20 -r 2 --clock"/>
+
+    <node pkg="tf" type="static_transform_publisher" name="w2base" args="0 0 0 0 -3.14 0 world camera_init 1000" />
+
+    <node pkg="tf" type="static_transform_publisher" name="w2imu" args="0.0 0.0 0.0 0.0 0.0 3.14159260 world imu 100" />
+
+</launch>
