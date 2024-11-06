@@ -1,12 +1,11 @@
-# Hello
+# Hello_world
 
-This is a forked repository of [flivis](https://github.com/hku-mars/flivis).
 
-In this we add extra script and configuration files to quickly run the experiments on [NTU VIRAL dataset](https://ntu-aris.github.io/ntu_viral_dataset/).
+In this we add madgwick filter for IMU processing and sensor fusion, extra script and configuration files to quickly run the experiments on [NTU VIRAL dataset](https://ntu-aris.github.io/ntu_viral_dataset/).
 
 ## Dependences
 
-I modified a little, delete the livox code that no those extra driver dependences:
+I modified a little, delete the livox code to get rid of those extra driver dependences:
 
 - ROS noetic desktop-full, Ubuntu 20.04
 
@@ -40,8 +39,21 @@ catkin_make
 source devel/setup.zsh # source devel/setup.bash
 ```
 
-## RUN ONE
+## workong with livox lidar
+We use livox mid-360 in our experiments:
+Download [livox_ros_driver2](https://github.com/Livox-SDK/livox_ros_driver2), cmake and build it first, then launch the livox lidar.
 
+```
+roslaunch flivis mapping_mid360.launch
+```
+
+---
+<details>
+  <summary>[Please check the official fast-lio repo or below origin read for more detail]</summary>
+
+# RUN on NTU-Viral Dataset
+
+## RUN ONE
 
 Download any seq you want in [NTU VIRAL dataset](https://ntu-aris.github.io/ntu_viral_dataset/). Extract it and copy the path
 
@@ -88,15 +100,9 @@ results table here, others result directly copy from [NTUViral Dataset Paper:](h
 | sbs\_03 |   0\.878   |    0\.140     | 0\.153 | **0\.054** | <u>0\.133</u> |
 
 
-
----
-<details>
-  <summary>[Please check the official flivis repo or below origin read for more detail]</summary>
-
 ## Related Works and Extended Application
 
 **SLAM:**
-
 1. [ikd-Tree](https://github.com/hku-mars/ikd-Tree): A state-of-art dynamic KD-Tree for 3D kNN search.
 2. [R2LIVE](https://github.com/hku-mars/r2live): A high-precision LiDAR-inertial-Vision fusion work using FAST-LIO as LiDAR-inertial front-end.
 3. [LI_Init](https://github.com/hku-mars/LiDAR_IMU_Init): A robust, real-time LiDAR-IMU extrinsic initialization and synchronization package..
@@ -180,7 +186,7 @@ Clone the repository and catkin_make:
 
 ```
     cd ~/$A_ROS_DIR$/src
-    git clone https://github.com/hku-mars/flivis.git
+    git clone https://github.com/hku-mars/fast-lio.git
     cd flivis
     git submodule update --init
     cd ../..
