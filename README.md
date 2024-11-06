@@ -29,8 +29,8 @@ I modified a little, delete the livox code to get rid of those extra driver depe
 
 ```bash
 mkdir $HOME/workspace/flivis/src && cd $HOME/workspace/flivis/src
-git clone https://github.com/Kin-Zhang/flivis.git
-cd flivis
+git clone https://github.com/allenthreee/FLiVIS.git
+cd FLiVIS
 git submodule update --init
 cd ../..
 catkin_make
